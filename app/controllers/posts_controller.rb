@@ -1,7 +1,17 @@
 class PostsController < ApplicationController
-  def index
-    @posts = Post.all
-  end
+   http_basic_authenticate_with name: "dhh", password: "secret", except: :index
+
+   def index
+     render plain: "Everyone can see me!"
+   end
+
+   def edit
+     render plain: "I'm only accessible if you know the password"
+   end
+
+  # def index
+  #   @posts = Post.all
+  # end
 
   def show
     @post = Post.find(params[:id])
@@ -20,9 +30,9 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
-    @post = Post.find(params[:id])
-  end
+  # def edit
+  #   @post = Post.find(params[:id])
+  # end
 
   def update
     @post = Post.find(params[:id])
