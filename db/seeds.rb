@@ -1,10 +1,25 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+def populate_comments(user, post)
+  rand(0..2).times do
+    comment = Comment.new(
+      content: Faker::TvShows::MichaelScott.quote
+    )
+    comment.user = user
+    comment.post = post
+    comment.save
+  end
+end
+
+def populate_posts(user)
+  rand(0..10).times do
+    post = Post.new(
+      title: Faker::Hacker.noun,
+      content: Faker::Hacker.say_something_smart
+    )
+    post.user = user
+    post.save
+    populate_comments(user, post)
+  end
+end
 
 puts 'Destroying existing users...'
 User.destroy_all
@@ -18,6 +33,7 @@ puts 'Creating 20 new users...'
     email: Faker::Internet.free_email
   )
   user.save
+  populate_posts(user)
 end
 puts '20 new users created'
 puts 'Seeding completed.'
