@@ -1,0 +1,7 @@
+<h1>Posts#index</h1>
+<p>Find me in app/views/posts/index.html.erb</p>
+<ol>
+  <% @posts[0...25].each do |post| %>
+    <li><%= link_to post.title, post_path(post) %></li>
+  <% end %>
+</ol>

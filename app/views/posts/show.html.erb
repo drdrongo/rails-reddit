@@ -1,0 +1,6 @@
+<h1>Title: <%= @post.title %></h1>
+<h3>Content: <%= @post.content %></h3>
+<p>User: <%= @post.user.username %></p>
+
+<%= link_to "edit post", edit_post_path %>
+<%= link_to "Return to top", posts_path %>
