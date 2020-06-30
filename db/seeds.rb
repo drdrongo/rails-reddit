@@ -21,16 +21,18 @@ def populate_posts(user)
   end
 end
 
-puts 'Destroying existing users...'
+puts 'Destroying existing users, posts, and comments...'
+Comment.destroy_all
+Post.destroy_all
 User.destroy_all
-puts 'All users destroyed.'
+puts 'All users, posts, and comments destroyed.'
 
 puts 'Creating 20 new users...'
 20.times do
   user = User.new(
-    username: Faker::Internet.username,
-    password: Faker::Internet.password(min_length: 8),
-    email: Faker::Internet.free_email
+    username: Faker::Internet.unique.username,
+    password: Faker::Internet.password(min_length: 6, max_length: 20),
+    email: Faker::Internet.unique.free_email
   )
   user.save
   populate_posts(user)
